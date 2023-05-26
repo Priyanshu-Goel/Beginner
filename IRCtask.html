@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registration Form</title>
+
+  <style>
+    /* Common styles */
+    body {
+      margin: 0;
+      background-image: url("island.jpeg");
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+    h1 {
+      text-align: center;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 150%;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="number"],
+    textarea,
+    button {
+      font-size: 1.5vw;
+      padding: 0.5vw;
+      border-radius: 0.5vw;
+      border: none;
+      margin-bottom: 1vw;
+    }
+
+    input[type="file"] {
+      margin-top: 1vw;
+    }
+
+    button {
+      background-color: rgb(53, 179, 138);
+      color: white;
+      cursor: pointer;
+    }
+
+    /* Desktop styles */
+    #formal {
+      background-color: rgb(217, 218, 218);
+      border-radius: 2.5%;
+      margin-left: 15%;
+      margin-right: 15%;
+      padding: 1.4%;
+      width: 70%;
+    }
+
+    /* Tablet styles */
+    @media screen and (max-width: 768px) {
+      #formal {
+        margin: 5%;
+        width: 90%;
+      }
+
+      input[type="text"],
+      input[type="email"],
+      input[type="tel"],
+      input[type="number"],
+      textarea,
+      button {
+        font-size: 3vw;
+        padding: 1vw;
+        border-radius: 1vw;
+        margin-bottom: 2vw;
+      }
+    }
+
+    /* Mobile styles */
+    @media screen and (max-width: 480px) {
+      #formal {
+        margin: 5%;
+        width: 90%;
+        padding: 5%;
+      }
+
+      input[type="text"],
+      input[type="email"],
+      input[type="tel"],
+      input[type="number"],
+      textarea,
+      button {
+        font-size: 4vw;
+        padding: 1vw;
+        border-radius: 1vw;
+        margin-bottom: 2vw;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="form" id="formal">
+    <h1 class="heading">Registration Form</h1>
+    <form id="registration-form">
+      <div>
+        <label for="first-name">First Name</label><br>
+        <input type="text" id="first-name" name="first-name" placeholder="First Name">
+      </div>
+      <div>
+        <label for="last-name">Last Name</label><br>
+        <input type="text" id="last-name" name="last-name" placeholder="Last Name">
+      </div>
+      <div>
+        <label for="gender">Gender</label><br>
+        <input type="checkbox" id="male" name="gender" value="male">
+        <label for="male">Male</label>
+        <input type="checkbox" id="female" name="gender" value="female">
+        <label for="female">Female</label>
+        <input type="checkbox" id="others" name="gender" value="others">
+        <label for="others">Others</label>
+      </div>
+      <div>
+        <label for="contact-no">Contact No.</label><br>
+        <input type="tel" id="contact-no" name="contact-no" placeholder="+91 xxxxxxxxxx">
+      </div>
+      <div>
+        <label for="email">Email</label><br>
+        <input type="email" id="email" name="email" placeholder="example@example.com">
+      </div>
+      <div>
+        <label for="address">Address</label><br>
+        <input type="text" id="flat-no" name="flat-no" placeholder="Flat No.">
+        <input type="text" id="street" name="street" placeholder="Street">
+        <br>
+        <input type="text" id="city" name="city" placeholder="City">
+        <input type="text" id="state" name="state" placeholder="State">
+        <input type="number" id="pin-code" name="pin-code" placeholder="Pin Code">
+      </div>
+      <div>
+        <label for="photo">Passport Size Photograph</label><br>
+        <input type="file" id="photo" name="photo">
+      </div>
+      <div>
+        <label for="cv">Your CV</label><br>
+        <input type="file" id="cv" name="cv">
+      </div>
+      <div>
+        <label for="recommendation-letter">Letter of Recommendation</label><br>
+        <input type="file" id="recommendation-letter" name="recommendation-letter">
+      </div>
+      <div>
+        <label for="other-documents">Other Relevant Documents</label><br>
+        <input type="file" id="other-documents" name="other-documents">
+      </div>
+      <div>
+        <label for="feedback">Feedback:</label><br>
+        <textarea id="feedback" name="feedback"></textarea>
+      </div>
+      <div>
+        <label for="questions">Any Questions for Us?</label><br>
+        <textarea id="questions" name="questions"></textarea>
+      </div>
+      <button type="submit">SUBMIT</button>
+    </form>
+  </div>
+
+  <script>
+    // Form Validation
+    const form = document.getElementById('registration-form');
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+      if (validateForm()) {
+        // Form is valid, submit it
+        this.submit();
+      }
+    });
+
+    function validateForm() {
+      const firstName = document.getElementById('first-name').value.trim();
+      const lastName = document.getElementById('last-name').value.trim();
+      const contactNo = document.getElementById('contact-no').value.trim();
+      const email = document.getElementById('email').value.trim();
+
+      if (firstName === '' || lastName === '' || contactNo === '' || email === '') {
+        alert('Please fill in all required fields.');
+        return false;
+      }
+
+      // Additional validation logic can be added
+
+      return true;
+    }
+
+    // Search Filter
+    const searchInput = document.getElementById('search-input');
+    const table = document.getElementById('data-table');
+
+    searchInput.addEventListener('input', function () {
+      const searchValue = this.value.toLowerCase();
+
+      Array.from(table.rows).forEach(function (row) {
+        const rowData = row.textContent.toLowerCase();
+
+        if (rowData.includes(searchValue)) {
+          row.style.display = '';
+        } else {
+          row.style.display = 'none';
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>
